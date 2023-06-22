@@ -25,7 +25,6 @@ class NFTMarketProvider extends ChangeNotifier {
   late EthereumWalletConnectProvider provider;
   late WalletConnect walletConnector;
   late WalletConnectEthereumCredentials wcCredentials;
-  List<dynamic> carts = [];
   int lengthCarts = 0;
   late Web3Client _client;
   late String _abiCode;
@@ -73,7 +72,7 @@ class NFTMarketProvider extends ChangeNotifier {
       if (session.accounts[0] != "") {
         getSigner();
         loged = true;
-        fetchUserCart().then((value) => lengthCarts = value.length);
+        fetchUserCart();
         notifyListeners();
       }
 
@@ -281,7 +280,7 @@ class NFTMarketProvider extends ChangeNotifier {
     // isLoading = true;
     // notifyListeners();
     nfts = await fetchNFTs(_fetchMarketItems, sender, true);
-     isLoading = false;
+    isLoading = false;
     notifyListeners();
   }
 

@@ -9,11 +9,11 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:nft_marketplace/screens/profile_screen.dart';
-import 'package:nft_marketplace/widgets/all_fuction_nft_details_screen.dart';
+
 import 'package:nft_marketplace/widgets/section.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
-import '../internal/function.dart';
+
 import '../model/nft.dart';
 import '../provider/NFTMarketProvider.dart';
 import '../routes/routes.dart';
@@ -678,6 +678,7 @@ class _NFTDetailScreenState extends State<NFTDetailScreen> {
         SizedBox(
           width: MediaQuery.of(context).size.width / 2 - 20,
           child: TextFormField(
+            readOnly: widget.nft.count == 1 ? true : false,
             inputFormatters: <TextInputFormatter>[
               FilteringTextInputFormatter.digitsOnly
             ],
@@ -905,7 +906,7 @@ class _NFTDetailScreenState extends State<NFTDetailScreen> {
                         style: TextStyle(fontSize: 18),
                       ),
                     ),
-                    widget.nft.count == 1
+                    widget.nft.limit == 1 || widget.nft.only == true
                         ? SizedBox.shrink()
                         : Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1088,7 +1089,11 @@ class _NFTDetailScreenState extends State<NFTDetailScreen> {
                   children: [
                     SizedBox(
                       width: MediaQuery.of(context).size.width - 30,
-                      child: Text("Nhập giá cược",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                      child: Text(
+                        "Nhập giá cược",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 2 - 20,
